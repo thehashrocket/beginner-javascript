@@ -129,6 +129,140 @@
       Looping Methods
     */
 
+    function logTopping(topping, index, originalArray) {
+      const prevTopping = originalArray[index - 1];
+      const nextTopping = originalArray[index + 1];
+      // log the topping
+      console.log(topping);
+      // log the prev topping if there is one
+      prevTopping ? console.log(prevTopping) : null;
+      // log the next topping if there is one
+      nextTopping ? console.log(nextTopping) : null;
+      // if it's the last item in the array say goodbye.
+      originalArray.length == index + 1 ? console.log('goodbye') : null;
+      console.log('-----------------------------');
+    }
+    toppings.forEach(logTopping);
+
+    // toppings.forEach(topping => {
+    //   console.log(topping);
+    // })
+
+    // Map, Filter, Reduce
+
+    console.clear();
+
+    function addArms(face) {
+      return `✋${face}✋`;
+    }
+
+    const toys = faces.map(addArms)
+    // console.log(toys);
+
+    function bosify(name) {
+      return `${name} Bos`;
+    }
+
+    function capitalize(word) {
+      return `${word[0].toUpperCase()}${word.slice(1)}`;
+    }
+
+    // const fullNames = ['west', 'kait', 'poppy'].map(name => `${name} Bos`);
+    const fullNames = ['west', 'kait', 'poppy']
+      .map(capitalize)
+      .map(bosify);
+
+    // console.log(fullNames)
+
+    const orderTotatlsWithTax = orderTotals.map(total => total * 1.13);
+    // console.log(orderTotatlsWithTax);
+
+    const cleanPeople = people.map(function (person) {
+      // get their birthday
+      const birthday = new Date(person.birthday).getTime();
+      const now = Date.now();
+      // figure out how old they are.
+      const age = Math.floor((now - birthday) / 31536000000);
+      // return their full name and birthday in an object.
+      return {
+        age: age,
+        name: `${person.names.first} ${person.names.last}`,
+      }
+    })
+
+    console.table(cleanPeople);
+
+    console.clear();
+
+
+    // Filter and Find
+
+    // returns an array
+    // const over40 = cleanPeople.filter((person) => { return person.age > 40 });
+
+    // const over40 = cleanPeople.filter((person) =>
+    //   person.age > 40
+    // );
+    // console.table(over40);
+
+    // if (over40.length) {
+    //   console.log('there are people over 40');
+    // }
+
+    // returns a single instance.
+    // const student = students.find(stud => stud.id == '565a')
+
+    // Higher order function
+    // function findById(id) {
+    //   return function isStudent(student) {
+    //     return student.id === id;
+    //   }
+    // }
+
+    // const student = students.find(findById('565a'))
+
+    // function findByProp(prop, propWeAreLookingFor) {
+    //   return function isStudent(student) {
+    //     return student[prop] === propWeAreLookingFor
+    //   }
+    // }
+
+    // const student = students.find(findByProp('id', '565a'))
+    // const student2 = students.find(findByProp('first_name', 'Brett'))
+
+    // console.log(student);
+    // console.log(student2);
+
+    console.clear();
+
+    // Reduce!
+
+    function tallyNumbers(tally, currentTotal) {
+      console.log(`The current tally is: ${tally}`);
+      console.log(`The current total is ${currentTotal}`);
+      console.log('-------');
+      // return the current tally PLUS the amount of this order
+      return tally + currentTotal;
+    }
+
+    const allOrders = orderTotals.reduce(tallyNumbers, 0);
+    console.log(allOrders);
+
+
+    function inventoryReducer(totals, item) {
+      console.log(`Looping over ${item.type}`);
+      // increment the type by 1
+      totals[item.type] = totals[item.type] + 1 || 1;
+      // return the totals, so the next loop can use it.
+      return totals;
+    }
+    const inventoryCounts = inventory.reduce(inventoryReducer, {});
+    console.log(inventoryCounts);
+
+    const totalInventoryPrice = inventory.reduce((acc, item) => acc + item.price, 0);
+    console.log(totalInventoryPrice);
+
+
   </script>
 </body>
 
